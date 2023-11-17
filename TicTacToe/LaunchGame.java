@@ -78,18 +78,14 @@ class TicTacToe
     
     boolean checkDiagWin()
     {
-        for(int i=0; i<=2; i++)
-        {
-            for(int j=0; j<=2; j++)
-            {
-                if(board[i][j] == board[i][j])
-                    {
-                        return true;
-                    }
-            }
-        }
+        if(board[0][0] == board[1][1] &&
+           board[1][1] == board[2][2] ||
+           board[0][2] == board[1][1] &&
+           board[1][1] == board[2][0])
+           {
+                return true;
+           }
         return false;
-        
         
     }
 }
@@ -122,7 +118,6 @@ public class LaunchGame {
         t.placeMark(1, 1, 'O');
         t.placeMark(2, 1, 'O');
         
-        t.placeMark(2, 0, 'X');
         
         t.dispBoard();
         System.out.println(t.checkDiagWin());
