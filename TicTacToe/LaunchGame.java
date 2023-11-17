@@ -52,7 +52,7 @@ class TicTacToe
     {
         for(int j=0; j<=2; j++)
         {
-            if(board[0][j] == board[1][j] &&
+            if(board[0][j] != ' ' && board[0][j] == board[1][j] &&
                board[1][j] == board[2][j])
                {
                     return true;
@@ -66,7 +66,7 @@ class TicTacToe
     {
         for(int i=0; i<=2; i++)
         {
-            if(board[i][0] == board[i][1] &&
+            if(board[i][0] != ' ' && board[i][0] == board[i][1] &&
                board[i][1] == board[i][2])
                {
                     return true;
@@ -78,9 +78,9 @@ class TicTacToe
     
     boolean checkDiagWin()
     {
-        if(board[0][0] == board[1][1] &&
+        if(board[0][0]!= ' ' && board[0][0] == board[1][1] &&
            board[1][1] == board[2][2] ||
-           board[0][2] == board[1][1] &&
+           board[0][2] != ' ' && board[0][2] == board[1][1] &&
            board[1][1] == board[2][0])
            {
                 return true;
@@ -116,7 +116,7 @@ public class LaunchGame {
         t.placeMark(2, 2, 'O');
         
         t.placeMark(1, 1, 'O');
-        t.placeMark(2, 1, 'O');
+        t.placeMark(2, 0, 'O');
         
         
         t.dispBoard();
