@@ -1,3 +1,4 @@
+package TicTacToe;
 
 import java.util.Scanner;
 
@@ -22,7 +23,7 @@ class TicTacToe
         }
     }
 
-    void dispBoard()
+    static void dispBoard()
     {
         System.out.println("-------------");
         for(int i=0; i<board.length; i++)
@@ -37,7 +38,7 @@ class TicTacToe
         }
     }
 
-    void placeMark(int row, int col, char mark)
+    static void placeMark(int row, int col, char mark)
     {
         if(row >= 0 && row <= 2 && col >=0 && col <= 2)
         {
@@ -79,10 +80,10 @@ class TicTacToe
     
     boolean checkDiagWin()
     {
-        if(board[0][0]!= ' ' && board[0][0] == board[1][1] &&
-           board[1][1] == board[2][2] ||
-           board[0][2] != ' ' && board[0][2] == board[1][1] &&
-           board[1][1] == board[2][0])
+        if((board[0][0]!= ' ' && board[0][0] == board[1][1] &&
+           board[1][1] == board[2][2]) ||
+         (board[0][2] != ' ' && board[0][2] == board[1][1] &&
+           board[1][1] == board[2][0]))
            {
                 return true;
            }
@@ -118,9 +119,7 @@ class HumanUser
         }while (isValidMove(row, col));
         
         
-
-
-
+        TicTacToe.placeMark(row, col, mark);
     }
 
     boolean isValidMove(int row, int col)
@@ -130,24 +129,13 @@ class HumanUser
            {
                 if(TicTacToe.board[row][col] == ' ')
                 {
-                    return true;
+                    return false;
                 }
            }
-           return false;
+           return true;
     }
 
 }
-
-class AIUser
-{
-
-}
-
-
-
-
-
-
 
 
 
@@ -156,21 +144,40 @@ class AIUser
 
 public class LaunchGame {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) 
+    {
+        
         TicTacToe t = new TicTacToe();
-        t.dispBoard();
-        t.placeMark(0, 2, 'O');
-        
-        t.placeMark(2, 1, 'O');
-        
-        t.placeMark(2, 2, 'O');
-        
-        t.placeMark(1, 1, 'O');
-        t.placeMark(2, 0, 'O');
-        
-        
-        t.dispBoard();
-        System.out.println(t.checkDiagWin());
+        HumanUser player1 = new HumanUser("Bob", 'X');
+        HumanUser player2 = new HumanUser("Alex", 'O');
+
+        HumanUser cp;
+        cp = player1; 
+
+        while (true) 
+        {
+            TicTacToe.dispBoard();
+            System.out.println(cp.name + "'s turn.");
+            cp.makeMove();
+
+            TicTacToe.dispBoard();
+            if(t.checkColWin() || t.checkRowWin() || t.checkDiagWin())
+            {
+                System.out.println(cp.name + " has won!");
+                break;
+            }
+            else
+            {
+                if(cp == player1)
+                {
+                    cp = player2;
+                }
+                else 
+                {
+                    cp = player1;
+                }
+            }
+        }
     }
     
 }
