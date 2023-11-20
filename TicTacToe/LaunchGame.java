@@ -1,5 +1,6 @@
 package TicTacToe;
 
+import java.util.Random;
 import java.util.Scanner;
 
 class TicTacToe
@@ -93,10 +94,31 @@ class TicTacToe
 }
 
 
-class HumanUser
+abstract class User
 {
     char mark; 
     String name;
+
+    abstract void makeMove();
+
+    
+    boolean isValidMove(int row, int col)
+    {
+        if(row >= 0 && row <= 2 &&
+           col >= 0 && col <= 2)
+           {
+                if(TicTacToe.board[row][col] == ' ')
+                {
+                    return false;
+                }
+           }
+           return true;
+    }
+}
+
+
+class HumanUser extends User
+{
     
     HumanUser(String name, char mark)
     {
@@ -122,21 +144,37 @@ class HumanUser
         TicTacToe.placeMark(row, col, mark);
     }
 
-    boolean isValidMove(int row, int col)
+}
+
+
+class AIUser extends User
+{
+    
+    AIUser(String name, char mark)
     {
-        if(row >= 0 && row <= 2 &&
-           col >= 0 && col <= 2)
-           {
-                if(TicTacToe.board[row][col] == ' ')
-                {
-                    return false;
-                }
-           }
-           return true;
+        this.name = name; 
+        this.mark = mark;
+    }
+
+    void makeMove()
+    {
+        Scanner s = new Scanner(System.in);
+
+        int row; 
+        int col; 
+
+        do
+        {
+            Random r = new Random();
+            row = r.nextInt(3);
+            col = r.nextInt(3);
+        }while (isValidMove(row, col));
+        
+        
+        TicTacToe.placeMark(row, col, mark);
     }
 
 }
-
 
 
 
@@ -149,14 +187,14 @@ public class LaunchGame {
         
         TicTacToe t = new TicTacToe();
         HumanUser player1 = new HumanUser("Bob", 'X');
-        HumanUser player2 = new HumanUser("Alex", 'O');
+        AIUser player2 = new AIUser("AlexBot", 'O');
 
-        HumanUser cp;
+        User cp;
         cp = player1; 
 
         while (true) 
         {
-            TicTacToe.dispBoard();
+            
             System.out.println(cp.name + "'s turn.");
             cp.makeMove();
 
