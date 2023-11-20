@@ -212,10 +212,14 @@ public class LaunchGame {
             cp.makeMove();
 
             TicTacToe.dispBoard();
-            if(t.checkColWin() || t.checkRowWin() || t.checkDiagWin() || t.checkDraw())
+            if(t.checkColWin() || t.checkRowWin() || t.checkDiagWin())
             {
                 System.out.println(cp.name + " has won!");
                 break;
+            }
+            else if(t.checkDraw())
+            {
+                System.out.println("Game Draw!");
             }
             else
             {
