@@ -91,6 +91,19 @@ class TicTacToe
         return false;
         
     }
+
+    boolean checkDraw() 
+    {
+    for (int i = 0; i <= 2; i++) {
+        for (int j = 0; j <= 2; j++) {
+            if (board[i][j] == ' ') {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
 }
 
 
@@ -199,7 +212,7 @@ public class LaunchGame {
             cp.makeMove();
 
             TicTacToe.dispBoard();
-            if(t.checkColWin() || t.checkRowWin() || t.checkDiagWin())
+            if(t.checkColWin() || t.checkRowWin() || t.checkDiagWin() || t.checkDraw())
             {
                 System.out.println(cp.name + " has won!");
                 break;
